@@ -1,0 +1,23 @@
+.nav-container{
+    background-color: rgb(71, 71, 71);
+    color: azure;
+    box-shadow: 0 0 4px #bbd0e2;
+    justify-content: space-between;
+    padding: 12px 20px;
+    
+}
+
+
+
+ ul{
+    gap: 16px;
+    cursor: pointer;
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+

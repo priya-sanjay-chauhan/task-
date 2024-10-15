@@ -1,0 +1,49 @@
+<div class="container">
+    
+    <div>
+        
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of users">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
+            <td>
+                {{ item.address.street }}, 
+                {{ item.address.suite }}, 
+                {{ item.address.zipcode }}
+            </td>
+        </tr>
+    </tbody>
+
+
+    </div>
+
+    <div class="c1">
+        <form action="">
+            <div>
+                <label for="Name">Name</label>
+            <input type="text">
+            </div>
+            <div>
+                <label for="email">email</label>
+            <input type="Email">
+            </div>
+            <div>
+                <label for="address">adress</label>
+            <input type="text">
+            </div>
+            <div>
+                <button>Add</button>
+            </div>
+        </form>
+    </div>
+
+</div>

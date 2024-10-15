@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.c1{
+    display: flex;
+}
