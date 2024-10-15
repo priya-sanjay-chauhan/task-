@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class NavComponent {
   
   constructor(private route:Router){}
+  loginService = inject(AuthService)
 
   navList=[
     { name: 'Home', path: 'home' },
@@ -22,5 +24,11 @@ export class NavComponent {
     this.route.navigate([path])
    
   }
+
+  logoutNow(){
+    this.loginService.logout()
+  }
+
+
 
 }

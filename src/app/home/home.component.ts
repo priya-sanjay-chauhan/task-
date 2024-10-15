@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,8 @@ export class HomeComponent {
   dummy_user="admin"
   dummy_password="123"
 
-
-  constructor(private router: Router) {
+  loginService = inject(AuthService)
+  constructor(private router: Router ) {
     this.loginForm = new FormGroup({
       username: new FormControl(''), 
       password: new FormControl(''), 
@@ -35,6 +36,8 @@ export class HomeComponent {
 
       if(username===this.dummy_user && password===this.dummy_password){
         console.log('Login successful')
+        this.loginService.login()
+
         this.router.navigate(['dashboard']);
       }else{
         this.error="Invalid"
@@ -44,4 +47,5 @@ export class HomeComponent {
     }
   }
 
+  
 }

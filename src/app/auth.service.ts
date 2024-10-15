@@ -5,19 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
- logged = false; 
+ loggedIn = false; 
 
   login(){
-    this.logged=true;
+    this.loggedIn=true;
   }
 
   logout() {
-    this.logged = false;
+    this.loggedIn = false;
   }
 
   isLoggedIn(): boolean {
-    return this.logged;
+    return this.loggedIn;
   }
  
+  
   
 }
