@@ -12,6 +12,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthGuard } from './auth.guard';
     DashboardComponent,
     ContactComponent,
     AboutComponent,
-    LogoutComponent
+    LogoutComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

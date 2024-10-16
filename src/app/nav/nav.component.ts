@@ -9,8 +9,8 @@ import { AuthService } from '../auth.service';
 })
 export class NavComponent {
   
-  constructor(private route:Router){}
-  loginService = inject(AuthService)
+  constructor(private route:Router,private authService:AuthService){}
+
 
   navList=[
     { name: 'Home', path: 'home' },
@@ -20,14 +20,16 @@ export class NavComponent {
     { name: 'Logout', path: '' }
   ];
 
-  navigateTo(path:string){
-    this.route.navigate([path])
-   
+ 
+  navigateTo(path: string): void {
+    if (path === '') { 
+      this.authService.logout(); 
+      this.route.navigate(['home']); 
+    } else {
+      this.route.navigate([path]); 
+    }
   }
 
-  logoutNow(){
-    this.loginService.logout()
-  }
 
 
 

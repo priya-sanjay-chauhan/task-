@@ -23,11 +23,9 @@ const routes: Routes = [
     component:ContactComponent
   },
   {path:'about',
-    component:AboutComponent
+    component:HomeComponent
   },
-  {path:'logout',
-    component:LogoutComponent
-  },
+ 
   
 ];
 

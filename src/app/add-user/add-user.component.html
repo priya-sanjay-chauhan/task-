@@ -1,0 +1,19 @@
+<div class="login-container">
+    <h2>Add User</h2>
+    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" />
+      </div>
+      <div>
+        <label for="address">Address</label>
+        <input id="address" formControlName="address" />
+      </div>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  

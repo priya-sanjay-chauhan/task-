@@ -18,15 +18,11 @@ export class HomeComponent {
   loginService = inject(AuthService)
   constructor(private router: Router ) {
     this.loginForm = new FormGroup({
-      username: new FormControl(''), 
-      password: new FormControl(''), 
+      username: new FormControl('', [Validators.required]), 
+      password: new FormControl('', [Validators.required]), 
     });
   }
 
-  ngOnInit(): void {
-
-    
-  }
 
   onSubmit(): void {
     if (this.loginForm.valid) {

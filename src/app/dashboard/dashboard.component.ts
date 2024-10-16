@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserdataService} from '../services/userdata.service'
+import { UserdataService } from '../services/userdata.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,13 +8,13 @@ import {UserdataService} from '../services/userdata.service'
 })
 export class DashboardComponent {
 
-  users:any;
+  users: any[]=[];
 
-  constructor(private userData:UserdataService){
-    userData.users().subscribe((data)=>{
-      this.users=data;
-      console.log(this.users)
-    })
+  constructor(private userData: UserdataService) {
+  
+    this.userData.users$.subscribe((data) => {
+      this.users = data; 
+    });
   }
-
 }
+
