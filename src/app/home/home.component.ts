@@ -15,8 +15,8 @@ export class HomeComponent {
   dummy_user="admin"
   dummy_password="123"
 
-  loginService = inject(AuthService)
-  constructor(private router: Router ) {
+
+  constructor(private router: Router, private loginService:AuthService ) {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]), 
       password: new FormControl('', [Validators.required]), 
