@@ -23,33 +23,31 @@ export class AddUserComponent {
     });
   }
 
-  // Custom validator to check if the ID is deleted
+ 
   idNotDeleted(control: FormControl): { [key: string]: boolean } | null {
     
     if (this.deletedUserIds.includes(control.value)) {
       console.log("id delete", );
       
-      return { idDeleted: true }; // Return error if ID is in deletedUserIds
+      return { idDeleted: true }; 
     }
-    return null; // No error if ID is valid
+    return null; 
   }
 
   onSubmit(): void {
     if (this.userForm.valid) {
       const newUser = this.userForm.value;
 
+      
 
 
-    
+ this.userData.addUser(newUser);
 
-      // Add user logic (e.g., call a service to save the user)
-      this.userData.addUser(newUser);
+      console.log('User added:', newUser); 
 
-      console.log('User added:', newUser); // Log the new user to the console
-
-      this.userForm.reset(); // Reset form after submission
+      this.userForm.reset(); 
     } else {
-      console.log('Form is invalid'); // Log invalid form state
+      console.log('Form is invalid'); 
     }
   }
 }
