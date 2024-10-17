@@ -23,7 +23,7 @@ const routes: Routes = [
     component:ContactComponent
   },
   {path:'about',
-    component:HomeComponent
+    component:AboutComponent
   },
  
   

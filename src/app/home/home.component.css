@@ -1,4 +1,3 @@
-/* General container for login */
 .login-container {
     width: 400px;
     margin: 50px auto;
@@ -9,24 +8,23 @@
     font-family: 'Arial', sans-serif;
   }
   
-  /* Heading styles */
+
   .login-container h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
   }
   
-  /* Label styles */
+
   .login-container label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
   }
-  
-  /* Input field styles */
+
   .login-container input {
-    width: 100%;
+    width: 94%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -34,13 +32,13 @@
     font-size: 16px;
   }
   
-  /* Error message styles */
+
   .login-container span {
     color: red;
     font-size: 14px;
   }
   
-  /* Button styles */
+ 
   .login-container button {
     width: 100%;
     padding: 10px;
@@ -55,8 +53,8 @@
   .login-container button:hover {
     background-color: #45a049;
   }
+ 
   
-  /* Additional styling for input focus */
   .login-container input:focus {
     outline: none;
     border: 1px solid #4CAF50;

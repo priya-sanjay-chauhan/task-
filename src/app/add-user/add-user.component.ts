@@ -12,7 +12,7 @@ export class AddUserComponent {
   addUserForm: FormGroup;
 
   constructor(private userData: UserdataService) {
-    // Initialize the form with FormGroup
+
     this.addUserForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),
@@ -20,26 +20,21 @@ export class AddUserComponent {
     });
   }
 
-  // Handle form submission
   onSubmit(): void {
     const { name, email, address } = this.addUserForm.value;
 
-    // Create a new user object
     const newUser = {
-      id: Date.now(), // Dummy unique ID for new user
+      id: Date.now(), 
       name: name,
       email: email,
       address: {
-        street: address, // Store the entire address as the street field
-        suite: '', // Optionally add suite if needed
-        zipcode: '' // Optionally add zipcode if needed
+        street: address,
+        suite: '', 
+        zipcode: '' 
       }
     };
 
-    // Add the new user through the UserdataService
     this.userData.addUser(newUser);
-
-    // Optionally, reset the form after submission
     this.addUserForm.reset();
   }
 }
