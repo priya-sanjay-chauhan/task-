@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserdataService } from '../services/userdata.service';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-add-user',
@@ -10,36 +11,48 @@ import { UserdataService } from '../services/userdata.service';
 export class AddUserComponent {
 
   addUserForm: FormGroup;
+  idError: string = '';  
 
-  constructor(private userData: UserdataService) {
-    // Initialize the form with FormGroup
+  constructor(private userDataService: UserdataService, private dashboard: DashboardComponent) {
+   
     this.addUserForm = new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      address: new FormControl('')
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      address: new FormControl('', Validators.required)
     });
   }
 
-  // Handle form submission
+
   onSubmit(): void {
-    const { name, email, address } = this.addUserForm.value;
+    const { id, name, email, address } = this.addUserForm.value;
+    const newId = Number(id); 
 
-    // Create a new user object
-    const newUser = {
-      id: Date.now(), // Dummy unique ID for new user
-      name: name,
-      email: email,
-      address: {
-        street: address, // Store the entire address as the street field
-        suite: '', // Optionally add suite if needed
-        zipcode: '' // Optionally add zipcode if needed
-      }
-    };
+    const existingUserIds = this.dashboard.existingUserIds;
+    const deletedUserIds = this.dashboard.deletedUserIds;
 
-    // Add the new user through the UserdataService
-    this.userData.addUser(newUser);
+ 
+    if (existingUserIds.includes(newId) || deletedUserIds.includes(newId)) {
+      this.idError = 'ID already exists or was deleted';
+    } else {
+      this.idError = ''; 
 
-    // Optionally, reset the form after submission
-    this.addUserForm.reset();
+      const newUser = {
+        id: newId,
+        name: name,
+        email: email,
+        address: {
+          street: address,
+          suite: '',
+          zipcode: ''
+        }
+      };
+
+      
+      this.userDataService.addUser(newUser);
+      this.dashboard.existingUserIds.push(newId);
+
+      this.addUserForm.reset();
+    }
   }
 }

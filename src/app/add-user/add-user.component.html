@@ -1,19 +1,32 @@
 <div class="login-container">
-    <h2>Add User</h2>
-    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="name">Name</label>
-        <input id="name" formControlName="name" />
+  <h2>Add User</h2>
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="id">ID</label>
+      <input id="id" formControlName="id" />
+      <div *ngIf="idError">
+        <span style="color: red;">{{ idError }}</span>
       </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" formControlName="email" />
+      <div *ngIf="addUserForm.get('id').invalid && addUserForm.get('id').touched">
+        <span>ID is required</span>
       </div>
-      <div>
-        <label for="address">Address</label>
-        <input id="address" formControlName="address" />
-      </div>
-      <button type="submit">Add</button>
-    </form>
-  </div>
-  
+    </div>
+
+    <div>
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" />
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" />
+    </div>
+
+    <div>
+      <label for="address">Address</label>
+      <input id="address" formControlName="address" />
+    </div>
+
+    <button type="submit">Add</button>
+  </form>
+</div>
