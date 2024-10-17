@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserdataService } from '../services/userdata.service';
 
 @Component({
@@ -8,33 +8,48 @@ import { UserdataService } from '../services/userdata.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
-
-  addUserForm: FormGroup;
+  @Input() deletedUserIds: number[] = [];
+  userForm: FormGroup;
 
   constructor(private userData: UserdataService) {
-
-    this.addUserForm = new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      address: new FormControl('')
+    // Initialize the form
+    this.userForm = new FormGroup({
+      id: new FormControl('', [Validators.required, this.idNotDeleted.bind(this)]),
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      address: new FormGroup({
+        street: new FormControl('', Validators.required)
+      })
     });
   }
 
+  // Custom validator to check if the ID is deleted
+  idNotDeleted(control: FormControl): { [key: string]: boolean } | null {
+    
+    if (this.deletedUserIds.includes(control.value)) {
+      console.log("id delete", );
+      
+      return { idDeleted: true }; // Return error if ID is in deletedUserIds
+    }
+    return null; // No error if ID is valid
+  }
+
   onSubmit(): void {
-    const { name, email, address } = this.addUserForm.value;
+    if (this.userForm.valid) {
+      const newUser = this.userForm.value;
 
-    const newUser = {
-      id: Date.now(), 
-      name: name,
-      email: email,
-      address: {
-        street: address,
-        suite: '', 
-        zipcode: '' 
-      }
-    };
 
-    this.userData.addUser(newUser);
-    this.addUserForm.reset();
+
+    
+
+      // Add user logic (e.g., call a service to save the user)
+      this.userData.addUser(newUser);
+
+      console.log('User added:', newUser); // Log the new user to the console
+
+      this.userForm.reset(); // Reset form after submission
+    } else {
+      console.log('Form is invalid'); // Log invalid form state
+    }
   }
 }

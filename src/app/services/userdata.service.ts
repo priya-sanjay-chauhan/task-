@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject,interval } from 'rxjs';
+import { BehaviorSubject,interval, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +10,30 @@ export class UserdataService implements OnDestroy {
   private usersSubject = new BehaviorSubject<any[]>([]);
   users$ = this.usersSubject.asObservable();
 
-  private currentId: number=0; 
+  // private currentId: number=0; 
 
   subscription:any;
   intervalSubscription:any;
   counterObservable=interval(1000)
+  
 
   constructor(private http: HttpClient) {
  
     this.subscription=this.http.get<any[]>('https://jsonplaceholder.typicode.com/users')
       .subscribe(data => {
         this.usersSubject.next(data); 
-        this.currentId = data.length + 1; 
+        // this.currentId = data.length + 1; 
       }, (error) => {
         console.log("an error occured ", error)
       });
 
-      this.startInterval()
+      // this.startInterval()
       
   }
+
+  // getUsers(): Observable<any[]>{
+  //   return this.usersSubject.asObservable()
+  // }
 
 
  startInterval(){
@@ -40,12 +45,27 @@ export class UserdataService implements OnDestroy {
 
   addUser(newUser: any) {
 
-    newUser.id = this.currentId++;
+    // newUser.id = this.currentId++;
+
+    
     
     const currentUsers = this.usersSubject.getValue();
+
+    // if (currentUsers.some(user => user.id === newUser.id)) {
+    //   console.error("User ID already exists. Cannot add user.");
+    //   return; // Prevent adding user with duplicate ID
+    // }
+
     currentUsers.push(newUser);
     this.usersSubject.next(currentUsers); 
+    console.log(currentUsers)
+
+    // const currentUsers=this.usersSubject.value;
+    // this.usersSubject.next([...currentUsers,newUser])
   }
+
+  
+
 
 
   unsubscribe(){
@@ -56,7 +76,7 @@ export class UserdataService implements OnDestroy {
 
     if(this.subscription){
       this.subscription.unsubscribe()
-      console.log("unsubscribe")
+      console.log("unsubscribe request")
     }
    }
 

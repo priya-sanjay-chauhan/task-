@@ -5,17 +5,28 @@ import { UserdataService } from '../services/userdata.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers:[UserdataService]
+  providers: [UserdataService]
 })
 export class DashboardComponent {
-
-  users: any[]=[];
+  usersData: any[] = [];
+  deletedUserIds: number[] = []; 
 
   constructor(private userData: UserdataService) {
-  
     this.userData.users$.subscribe((data) => {
-      this.users = data; 
+      this.usersData = data; 
     });
   }
-}
 
+  deleteUser(index: number) {
+    const deletedUser = this.usersData.splice(index, 1)[0]; 
+    if (deletedUser) {
+      this.deletedUserIds.push(deletedUser.id); 
+      console.log("Deleted User ID:", deletedUser.id);
+      console.log("Deleted User IDs:", this.deletedUserIds);
+    }
+  }
+
+  isIdDeleted(id: number): boolean {
+    return this.deletedUserIds.includes(id);
+  }
+}
